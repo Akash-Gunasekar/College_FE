@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer Service Platform</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+   /* Reset and basic styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #ffffff;
+  color: #333;
+}
+
+/* Header styles */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to right, #ff9800, #ff9800); /* Gradient background */
+  color: #fff;
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+}
+
+nav ul li {
+  margin-right: 30px;
+  position: relative;
+}
+
+nav ul li a {
+  color: #fff;
+  text-transform: uppercase; /* Uppercase text */
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+  color: #000000;
+}
+
+nav ul li a::before {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: rgb(255, 255, 255);
+}
+
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-info img:hover {
+  filter: brightness(85%); /* Slightly dim avatar on hover */
+  transition: filter 0.3s ease;
+}
+
+.user-info span {
+  font-weight: 500;
+}
+
+/* Main content styles */
+main {
+  display: flex;
+  padding: 20px;
+}
+
+.ticket-list {
+  width: 30%;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.241);
+  overflow-y: auto; 
+  max-height: calc(120vh - 200px); /* Maximum height to fit within viewport */
+  padding-right: 5px; /* Add right padding to prevent horizontal scrollbar */
+}
+
+.ticket {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #f8f8f8;
+  transition: background-color 0.3s ease;
+}
+
+.ticket:hover {
+  background-color: #e0e0e0; /* Lighter background color on hover */
+  transform: translateY(-4px); /* Lift ticket on hover */
+}
+
+.priority {
+  color: #e53935;
+  font-weight: bold;
+  font-size: 18px;
+  /* margin-left: 10px; */
+}
+
+.assignee {
+  color: #888;
+  font-size: 14px;
+}
+
+.action {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-start;
+  gap:5vh;
+}
+.action button {
+  background-color: #ff9800;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Transition on hover */
+}
+
+.action button:hover {
+  background-color: #ff9800;
+  transform: scale(1.05); /* Grow button on hover */
+}
+
+.action button:first-child {
+  margin-right: 5px;
+}
+
+
+.actions {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.actions button {
+  background-color: #ff9800;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Transition on hover */
+}
+
+.actions button:hover {
+  background-color: #ff9800;
+  transform: scale(1.05); /* Grow button on hover */
+}
+
+.actions button:first-child {
+  margin-right: 5px;
+}
+
+.ticket-details {
+  width: 70%;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-left: 20px;
+}
+
+.status {
+  color: #2196f3;
+  font-weight: bold;
+
+}
+
+.cust-info{
+  display: grid;
+  margin-bottom: 20px;
+  margin-left: 48vh;
+  
+}
+
+.customer-img {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  width: 80px;
+  height: 90px;
+  border-radius: 50%;
+  margin-top: 10vh;
+  margin-right: 10px;
+  margin-left: 50vh;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.case-info {
+  margin-bottom: 20px;
+  margin-left: 1vh;
+}
+
+.amount {
+  font-weight: bold;
+  color: #e53935;
+}
+
+.tran-det{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+  margin-bottom: 8px;
+  margin-top: 40px;
+  font-weight: bold;
+
+}
+.details {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.deadline {
+  color: #e53935;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Split Screen Styles */
+.split {
+  height: 100%;
+  width: 50%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  overflow-x: hidden;
+  
+}
+
+.right {
+  right: 0;
+  background: linear-gradient(to right, #ffffff, #ffffff); /* Gradient background */
+  color: #000000;
+  margin-top: 0px;
+  background-color: rgb(255, 255, 255);
+  border-left: 2px solid #ff9500;
+  text-align: center;
+}
+
+
+/* .centered {
+  text-align: center;
+  margin-top: 50%;
+  transform: translateY(-50%);
+}
+
+.centered img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.centered h2 {
+  margin-top: 10px;
+}
+
+.centered p {
+  margin-top: 5px;
+} */
+
+/*styles for header for the right screen class*/
+.heading-container {
+    position: relative;
+    background-color: #ff9800;
+    padding: 4px 18px;
+    color: #fff;
+}
+
+.close-icon {
+    position: absolute;
+    top: 10px; /* Adjust top position as needed */
+    right: 10px; /* Adjust right position as needed */
+    cursor: pointer;
+    color: #fff;
+    font-size: 20px;
+}
+
+.close-icon:hover {
+    color: #ccc; /* Change color on hover if needed */
+}
+
+
+/* Add blur effect to all elements except for the right split screen */
+.blur-effect {
+    filter: blur(3px);
+}
+
+/* Remove blur effect for the right split screen */
+.heading-container {
+    filter: none;
+}
+
+</style>
+</head>
+
+<body>
+  <header>
+    <nav class="nav-container">
+      <ul>
+        <li><a href="#">Recent</a></li>
+        <li><a href="#">Open</a></li>
+        <li><a href="#">All</a></li>
+        <li><input type="text" placeholder="Search"></li>
+      </ul>
+    </nav>
+    <div class="user-info">
+      <img src="images/profile-2.png" alt="User Avatar">
+      <span>Sami Zahran</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="ticket-list">
+      <div class="ticket">
+        <h3>CID 32479 <span class="priority">High</span></h3>
+        <p>Payment Issue</p>
+        <div class="assignee">Ahmad Al-Farsi</div>
+        <div class="actions">
+          <button>Reassign</button>
+          <button>Close</button>
+        </div>
+      </div>
+      
+      <!-- Additional Ticket Elements -->
+      
+      <div class="ticket">
+        <h3>CID 32515 <span class="priority">Medium</span></h3>
+        <p>Product Inquiry</p>
+        <div class="assignee">Fatima Khan</div>
+        <div class="actions">
+          <button>Reassign</button>
+          <button>Close</button>
+        </div>
+      </div>
+      
+      <div class="ticket">
+        <h3>CID 32524 <span class="priority">Low</span></h3>
+        <p>Account Access Issue</p>
+        <div class="assignee">Ali Hasan</div>
+        <div class="actions">
+          <button>Reassign</button>
+          <button>Close</button>
+        </div>
+      </div>
+      
+      <div class="ticket">
+        <h3>CID 32539 <span class="priority">High</span></h3>
+        <p>Technical Support</p>
+        <div class="assignee">Sara Ahmed</div>
+        <div class="actions">
+          <button>Reassign</button>
+          <button>Close</button>
+        </div>
+      </div>
+      
+      <div class="ticket">
+        <h3>CID 32548 <span class="priority">Medium</span></h3>
+        <p>Service Disruption</p>
+        <div class="assignee">Mohammed Ali</div>
+        <div class="actions">
+          <button>Reassign</button>
+          <button>Close</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="ticket-details">
+      <h2>CID 32479 <span class="status">New</span></h2>
+      <h3>Payment Flagged as Suspicious!</h3>
+      <div class="customer-img">  
+        <img src="images/profile-1.png" alt="Customer Avatar">
+      </div>
+      <div class="cust-info">
+        <span>Cust ID: 238762300</span>
+        <span>ahmad@gmail.com</span>
+      </div>
+      <div class="case-info">
+        <p>Amount: <span class="amount">2,50,000.00 AED</span> <span class="status">On Hold</span></p>
+        <p>Suspicious transaction has been detected on the bank account. Our system has flagged a payment of 250,000 AED as potentially fraudulent, and as a precautionary measure, it's placed on hold for further clarification.</p>
+        <div class="transaction-details">
+          <div class="tran-det">
+            <span>Transaction ID</span>
+            <span>Transaction Date</span>
+            <span>Payer</span>
+            <span>Payee</span>
+          </div>
+          <div class="details">
+            <span>38E1213809221B</span>
+            <span>07 Mar 2024 10:00am</span>
+            <span>SunBright Exports Imports</span>
+            <span>Dutoo Logistics Corp.</span>
+          </div>
+        </div>
+        <p class="deadline">Resolution Deadline 07 Mar 2024 11:59 pm</p>
+      </div>
+      <div class="action">
+        <button class="manual-btn">Manual</button>
+        <button class="neo-magic-btn" onclick="openNeoMagicPage()">Neo Magic</button>
+        <button class="v24-btn">Vee24</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function openNeoMagicPage() {
+      // Open the desired URL in a new tab or window
+      window.open("https://661245c1a1c26a8103a2308b--soft-belekoy-df3409.netlify.app/", "_blank");
+    }
+    </script>
+    
+</body>
+</html>
